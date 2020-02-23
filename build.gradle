@@ -1,0 +1,44 @@
+plugins {
+    id 'application'
+    id 'com.stehno.natives' version '0.3.1'
+}
+
+group 'lwjake2'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+application {
+    mainClassName = 'lwjake2.LWJake2'
+    applicationDefaultJvmArgs = ['-Djava.library.path=../natives']
+}
+
+configurations {
+    platformNative
+}
+
+natives {
+    configurations = ['platformNative']
+}
+
+applicationDistribution.from("$buildDir/natives") {
+    into 'natives'
+}
+
+distTar.dependsOn includeNatives
+distZip.dependsOn includeNatives
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.lwjgl.lwjgl:lwjgl:2.9.3') {
+        exclude group: 'org.lwjgl.lwjgl', module: 'lwjgl-platform'
+        exclude group: 'net.java.jinput', module: 'jinput-platform'
+    }
+    platformNative 'org.lwjgl.lwjgl:lwjgl:2.9.3'
+    testImplementation 'junit:junit:4.12'
+}
