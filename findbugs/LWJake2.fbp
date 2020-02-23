@@ -1,7 +1,0 @@
-<Project projectName="LWJake2">
-	<Jar>../built/jar/lwjake2.jar</Jar>
-	<AuxClasspathEntry>../lib/lwjgl.jar</AuxClasspathEntry>
-	<AuxClasspathEntry>../lib/lwjgl_util.jar</AuxClasspathEntry>
-	<AuxClasspathEntry>../lib/flibitEFX.jar</AuxClasspathEntry>
-	<SrcDir>../src</SrcDir>
-</Project>
