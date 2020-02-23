@@ -45,11 +45,11 @@ public final class Qcommon extends Globals {
 	 * This function initializes the different subsystems of
 	 * the game engine. The setjmp/longjmp mechanism of the original
 	 * was replaced with exceptions.
+	 *
 	 * @param args the original unmodified command line arguments
 	 */
 	public static void Init(String[] args) {
 		try {
-
 			// prepare enough of the subsystems to handle
 			// cvar and command buffer management
 			Com.InitArgv(args);
@@ -83,14 +83,14 @@ public final class Qcommon extends Globals {
 			//
 			Cmd.AddCommand("error", Com.Error_f);
 
-			Globals.host_speeds= Cvar.Get("host_speeds", "0", 0);
-			Globals.log_stats= Cvar.Get("log_stats", "0", 0);
-			Globals.developer= Cvar.Get("developer", "0", CVAR_ARCHIVE);
-			Globals.timescale= Cvar.Get("timescale", "0", 0);
-			Globals.fixedtime= Cvar.Get("fixedtime", "0", 0);
-			Globals.logfile_active= Cvar.Get("logfile", "0", 0);
-			Globals.showtrace= Cvar.Get("showtrace", "0", 0);
-			Globals.dedicated= Cvar.Get("dedicated", "0", CVAR_NOSET);
+			Globals.host_speeds = Cvar.Get("host_speeds", "0", 0);
+			Globals.log_stats = Cvar.Get("log_stats", "0", 0);
+			Globals.developer = Cvar.Get("developer", "0", CVAR_ARCHIVE);
+			Globals.timescale = Cvar.Get("timescale", "0", 0);
+			Globals.fixedtime = Cvar.Get("fixedtime", "0", 0);
+			Globals.logfile_active = Cvar.Get("logfile", "0", 0);
+			Globals.showtrace = Cvar.Get("showtrace", "0", 0);
+			Globals.dedicated = Cvar.Get("dedicated", "0", CVAR_NOSET);
 			String s = Com.sprintf("%4.2f %s %s %s",
 					new Vargs(4)
 						.add(Globals.VERSION)
@@ -139,9 +139,8 @@ public final class Qcommon extends Globals {
 	 */
 	public static void Frame(int msec) {
 		try {
-
 			if (Globals.log_stats.modified) {
-				Globals.log_stats.modified= false;
+				Globals.log_stats.modified = false;
 
 				if (Globals.log_stats.value != 0.0f) {
 
@@ -149,12 +148,12 @@ public final class Qcommon extends Globals {
 						Globals.log_stats_file.close();
 					} catch (IOException e) {
 					}
-					Globals.log_stats_file= null;
+					Globals.log_stats_file = null;
 
 					try {
-						Globals.log_stats_file= new FileWriter("stats.log");
+						Globals.log_stats_file = new FileWriter("stats.log");
 					} catch (IOException e) {
-						Globals.log_stats_file= null;
+						Globals.log_stats_file = null;
 					}
 					if (Globals.log_stats_file != null) {
 						try {
@@ -170,13 +169,13 @@ public final class Qcommon extends Globals {
 							Globals.log_stats_file.close();
 						} catch (IOException e) {
 						}
-						Globals.log_stats_file= null;
+						Globals.log_stats_file = null;
 					}
 				}
 			}
 
 			if (Globals.fixedtime.value != 0.0f) {
-				msec= (int) Globals.fixedtime.value;
+				msec = (int) Globals.fixedtime.value;
 			} else if (Globals.timescale.value != 0.0f) {
 				msec *= Globals.timescale.value;
 				if (msec < 1)
@@ -189,19 +188,19 @@ public final class Qcommon extends Globals {
 								.add(Globals.c_pointcontents));
 
 				
-				Globals.c_traces= 0;
-				Globals.c_brush_traces= 0;
-				Globals.c_pointcontents= 0;
+				Globals.c_traces = 0;
+				Globals.c_brush_traces = 0;
+				Globals.c_pointcontents = 0;
 			}
 
 			Cbuf.Execute();
 
-			int time_before= 0;
-			int time_between= 0;
-			int time_after= 0;
+			int time_before = 0;
+			int time_between = 0;
+			int time_after = 0;
 
 			if (Globals.host_speeds.value != 0.0f)
-				time_before= Timer.Milliseconds();
+				time_before = Timer.Milliseconds();
 			
 			Com.debugContext = "SV:";
 			SV_MAIN.SV_Frame(msec);
@@ -213,13 +212,13 @@ public final class Qcommon extends Globals {
 			CL.Frame(msec);
 
 			if (Globals.host_speeds.value != 0.0f) {
-				time_after= Timer.Milliseconds();
+				time_after = Timer.Milliseconds();
 
-				int all= time_after - time_before;
-				int sv= time_between - time_before;
-				int cl= time_after - time_between;
-				int gm= Globals.time_after_game - Globals.time_before_game;
-				int rf= Globals.time_after_ref - Globals.time_before_ref;
+				int all = time_after - time_before;
+				int sv = time_between - time_before;
+				int cl = time_after - time_between;
+				int gm = Globals.time_after_game - Globals.time_before_game;
+				int rf = Globals.time_after_ref - Globals.time_before_ref;
 				sv -= gm;
 				cl -= rf;
 

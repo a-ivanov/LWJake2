@@ -25,14 +25,14 @@ import lwjake2.qcommon.FS;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-public class Lib {
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
 
+public class Lib {
 
 	/** Converts a vector to a string. */
 	public static String vtos(float[] v) {
@@ -76,15 +76,11 @@ public class Lib {
 
 	/** Like in libc. */
 	public static float atof(String in) {
-		float res = 0;
-	
 		try {
-			res = Float.parseFloat(in);
+			return Float.parseFloat(in);
+		} catch (NumberFormatException e) {
+			return 0.0f;
 		}
-		catch (Exception e) {
-		}
-	
-		return res;
 	}
 	
 	/** Like in quake2. */
@@ -309,13 +305,8 @@ public class Lib {
      * avoid String.getBytes() because it is using system specific character encoding.
      */
     public static byte[] stringToBytes(String value) {
-        try {
-           return value.getBytes("ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            // can't happen: Latin 1 is a standard encoding
-            return null;
-        }
-    }
+		return value.getBytes(ISO_8859_1);
+	}
     
     /** 
      * convert a byte[] with 8bit latin 1 to java string
@@ -323,13 +314,8 @@ public class Lib {
      * avoid new String(bytes) because it is using system specific character encoding.
      */
     public static String bytesToString(byte[] value) {
-        try {
-           return new String(value, "ISO-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            // can't happen: Latin 1 is a standard encoding
-            return null;
-        }
-    }
+		return new String(value, ISO_8859_1);
+	}
 	
 	/** Helper method that savely handles the null termination of old C String data. */
 	public static String CtoJava(String old) {

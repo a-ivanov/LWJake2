@@ -18,11 +18,11 @@ application {
 }
 
 configurations {
-    platformNative
+    runtimeNative
 }
 
 natives {
-    configurations = ['platformNative']
+    configurations = ['runtimeNative']
 }
 
 applicationDistribution.from("$buildDir/natives") {
@@ -31,6 +31,10 @@ applicationDistribution.from("$buildDir/natives") {
 
 distTar.dependsOn includeNatives
 distZip.dependsOn includeNatives
+
+test {
+    useJUnitPlatform()
+}
 
 repositories {
     mavenCentral()
@@ -41,6 +45,10 @@ dependencies {
         exclude group: 'org.lwjgl.lwjgl', module: 'lwjgl-platform'
         exclude group: 'net.java.jinput', module: 'jinput-platform'
     }
-    platformNative 'org.lwjgl.lwjgl:lwjgl:2.9.3'
-    testImplementation 'junit:junit:4.12'
+    runtimeNative 'org.lwjgl.lwjgl:lwjgl:2.9.3'
+
+    testImplementation platform('org.junit:junit-bom:5.6.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }

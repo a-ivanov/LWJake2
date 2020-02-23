@@ -66,15 +66,10 @@ public class Cvar extends Globals {
             }
         }
         var = new cvar_t();
-        var.name = new String(var_name);
-        var.string = new String(var_value);
+        var.name = var_name;
+        var.string = var_value;
         var.modified = true;
-        // handles atof(var.string)
-        try {
-            var.value = Float.parseFloat(var.string);
-        } catch (NumberFormatException e) {
-            var.value = 0.0f;
-        }
+        var.value = Lib.atof(var.string);
         // link the variable in
         var.next = Globals.cvar_vars;
         Globals.cvar_vars = var;
@@ -95,7 +90,7 @@ public class Cvar extends Globals {
         return (var == null) ? "" : var.string;
     }
 
-    static cvar_t FindVar(String var_name) {
+    private static cvar_t FindVar(String var_name) {
         cvar_t var;
 
         for (var = Globals.cvar_vars; var != null; var = var.next) {
@@ -123,11 +118,7 @@ public class Cvar extends Globals {
             Globals.userinfo_modified = true; // transmit at next oportunity
 
         var.string = value;
-        try {
-            var.value = Float.parseFloat(var.string);
-        } catch (Exception e) {
-            var.value = 0.0f;
-        }
+        var.value = Lib.atof(var.string);
 
         var.flags = flags;
 
@@ -188,11 +179,7 @@ public class Cvar extends Globals {
                     var.latched_string = value;
                 } else {
                     var.string = value;
-                    try {
-                        var.value = Float.parseFloat(var.string);
-                    } catch (Exception e) {
-                        var.value = 0.0f;
-                    }
+                    var.value = Lib.atof(var.string);
                     if (var.name.equals("game")) {
                         FS.SetGamedir(var.string);
                         FS.ExecAutoexec();
@@ -215,11 +202,7 @@ public class Cvar extends Globals {
             Globals.userinfo_modified = true; // transmit at next oportunity
 
         var.string = value;
-        try {
-            var.value = Float.parseFloat(var.string);
-        } catch (Exception e) {
-            var.value = 0.0f;
-        }
+        var.value = Lib.atof(var.string);
 
         return var;
     }
@@ -317,12 +300,7 @@ public class Cvar extends Globals {
         cvar_t var = Cvar.FindVar(var_name);
         if (var == null)
             return 0;
-        float val = 0.0f;
-        try {
-            val = Float.parseFloat(var.string);
-        } catch (Exception e) {
-        }
-        return val;
+        return Lib.atof(var.string);
     }
 
     /**
@@ -378,11 +356,7 @@ public class Cvar extends Globals {
                 continue;
             var.string = var.latched_string;
             var.latched_string = null;
-            try {
-                var.value = Float.parseFloat(var.string);
-            } catch (NumberFormatException e) {
-                var.value = 0.0f;
-            }
+            var.value = Lib.atof(var.string);
             if (var.name.equals("game")) {
                 FS.SetGamedir(var.string);
                 FS.ExecAutoexec();
@@ -447,12 +421,12 @@ public class Cvar extends Globals {
     /**
      * Some characters are invalid for info strings.
      */
-    static boolean InfoValidate(String s) {
-        if (s.indexOf("\\") != -1)
+    private static boolean InfoValidate(String s) {
+        if (s.contains("\\"))
             return false;
-        if (s.indexOf("\"") != -1)
+        if (s.contains("\""))
             return false;
-        if (s.indexOf(";") != -1)
+        if (s.contains(";"))
             return false;
         return true;
     }

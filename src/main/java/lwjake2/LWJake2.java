@@ -23,6 +23,8 @@ import lwjake2.qcommon.Cvar;
 import lwjake2.qcommon.Qcommon;
 import lwjake2.sys.Timer;
 
+import static lwjake2.Defines.CVAR_NOSET;
+
 /**
  * Jake2 is the main class of Quake2 for Java.
  */
@@ -62,13 +64,13 @@ public final class LWJake2 {
     	
     	// TODO: check if dedicated is set in config file
     	
-		Globals.dedicated= Cvar.Get("dedicated", "0", Qcommon.CVAR_NOSET);
+		Globals.dedicated = Cvar.Get("dedicated", "0", CVAR_NOSET);
     
     	if (dedicated)
     		Globals.dedicated.value = 1.0f;
 
         // in C the first arg is the filename
-        int argc = (args == null) ? 1 : args.length + 1;
+        int argc = args.length + 1;
         String[] c_args = new String[argc];
         c_args[0] = "LWJake2";
         if (argc > 1) {
@@ -78,9 +80,7 @@ public final class LWJake2 {
 
         Globals.nostdout = Cvar.Get("nostdout", "0", 0);
 
-        int oldtime = Timer.Milliseconds();
-        int newtime;
-        int time;
+        int time, oldtime = Timer.Milliseconds(), newtime;
         while (true) {
             // find time spending rendering last frame
             newtime = Timer.Milliseconds();
