@@ -24,11 +24,7 @@ import lwjake2.game.Cmd;
 import lwjake2.game.cvar_t;
 import lwjake2.sys.Sys;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
@@ -518,7 +514,7 @@ public final class FS extends Globals {
      * Loads the header and directory, adding the files at the beginning of the
      * list so they override previous pack files.
      */
-    static pack_t LoadPackFile(String packfile) {
+    private static pack_t LoadPackFile(String packfile) {
 
         dpackheader_t header;
         Hashtable<String, packfile_t> newfiles;

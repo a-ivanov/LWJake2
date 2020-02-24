@@ -27,7 +27,6 @@ import lwjake2.server.SV_MAIN;
 import lwjake2.sys.NET;
 import lwjake2.sys.Sys;
 import lwjake2.sys.Timer;
-import lwjake2.util.Vargs;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -91,12 +90,7 @@ public final class Qcommon extends Globals {
 			Globals.logfile_active = Cvar.Get("logfile", "0", 0);
 			Globals.showtrace = Cvar.Get("showtrace", "0", 0);
 			Globals.dedicated = Cvar.Get("dedicated", "0", CVAR_NOSET);
-			String s = Com.sprintf("%4.2f %s %s %s",
-					new Vargs(4)
-						.add(Globals.VERSION)
-						.add(CPUSTRING)
-						.add(Globals.__DATE__)
-						.add(BUILDSTRING));
+			String s = Com.sprintf("%4.2f %s %s %s", Globals.VERSION, CPUSTRING, Globals.__DATE__, BUILDSTRING);
 
 			Cvar.Get("version", s, CVAR_SERVERINFO | CVAR_NOSET);
 			
@@ -184,10 +178,8 @@ public final class Qcommon extends Globals {
 
 			if (Globals.showtrace.value != 0.0f) {
 				Com.Printf("%4i traces  %4i points\n",
-					new Vargs(2).add(Globals.c_traces)
-								.add(Globals.c_pointcontents));
+						Globals.c_traces, Globals.c_pointcontents);
 
-				
 				Globals.c_traces = 0;
 				Globals.c_brush_traces = 0;
 				Globals.c_pointcontents = 0;
@@ -222,8 +214,7 @@ public final class Qcommon extends Globals {
 				sv -= gm;
 				cl -= rf;
 
-				Com.Printf("all:%3i sv:%3i gm:%3i cl:%3i rf:%3i\n",
-					new Vargs(5).add(all).add(sv).add(gm).add(cl).add(rf));
+				Com.Printf("all:%3i sv:%3i gm:%3i cl:%3i rf:%3i\n", all, sv, gm, cl, rf);
 			}
 
 		} catch (longjmpException e) {

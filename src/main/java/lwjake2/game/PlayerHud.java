@@ -22,7 +22,6 @@ import lwjake2.Defines;
 import lwjake2.qcommon.Com;
 import lwjake2.util.Lib;
 import lwjake2.util.Math3D;
-import lwjake2.util.Vargs;
 
 public class PlayerHud {
 
@@ -516,13 +515,13 @@ public class PlayerHud {
                 .append("\" "); // help 2
         sb.append("xv 50 yv 164 string2 \" kills     goals    secrets\" ");
         sb.append("xv 50 yv 172 string2 \"");
-        sb.append(Com.sprintf("%3i/%3i     %i/%i       %i/%i\" ", new Vargs(6)
-                .add(GameBase.level.killed_monsters).add(
-                        GameBase.level.total_monsters).add(
-                        GameBase.level.found_goals).add(
-                        GameBase.level.total_goals).add(
-                        GameBase.level.found_secrets).add(
-                        GameBase.level.total_secrets)));
+        sb.append(Com.sprintf("%3i/%3i     %i/%i       %i/%i\" ",
+                GameBase.level.killed_monsters,
+                GameBase.level.total_monsters,
+                GameBase.level.found_goals,
+                GameBase.level.total_goals,
+                GameBase.level.found_secrets,
+                GameBase.level.total_secrets));
     
         GameBase.gi.WriteByte(Defines.svc_layout);
         GameBase.gi.WriteString(sb.toString());

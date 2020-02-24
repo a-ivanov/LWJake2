@@ -28,9 +28,13 @@ import lwjake2.qcommon.FS;
 import lwjake2.qcommon.qfiles;
 import lwjake2.render.image_t;
 import lwjake2.util.Lib;
-import lwjake2.util.Vargs;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.ARBImaging;
+import org.lwjgl.opengl.ARBMultitexture;
+import org.lwjgl.opengl.EXTSharedTexturePalette;
+import org.lwjgl.opengl.GL11;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -38,12 +42,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.util.Arrays;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.ARBImaging;
-import org.lwjgl.opengl.ARBMultitexture;
-import org.lwjgl.opengl.EXTSharedTexturePalette;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Image
@@ -351,8 +349,7 @@ public abstract class Image extends Main {
 			VID.Printf(
 				Defines.PRINT_ALL,
 				" %3i %3i %s: %s\n",
-				new Vargs(4).add(image.upload_width).add(image.upload_height).add(palstrings[(image.paletted) ? 1 : 0]).add(
-					image.name));
+				image.upload_width, image.upload_height, palstrings[(image.paletted) ? 1 : 0], image.name);
 		}
 		VID.Printf(Defines.PRINT_ALL, "Total texel count (not counting mipmaps): " + texels + '\n');
 	}

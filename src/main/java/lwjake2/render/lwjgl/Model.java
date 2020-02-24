@@ -22,22 +22,10 @@ import lwjake2.Defines;
 import lwjake2.client.VID;
 import lwjake2.game.cplane_t;
 import lwjake2.game.cvar_t;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.lump_t;
-import lwjake2.qcommon.qfiles;
-import lwjake2.qcommon.texinfo_t;
-import lwjake2.render.medge_t;
-import lwjake2.render.mleaf_t;
-import lwjake2.render.mmodel_t;
-import lwjake2.render.mnode_t;
-import lwjake2.render.model_t;
-import lwjake2.render.msurface_t;
-import lwjake2.render.mtexinfo_t;
-import lwjake2.render.mvertex_t;
+import lwjake2.qcommon.*;
+import lwjake2.render.*;
 import lwjake2.util.Math3D;
-import lwjake2.util.Vargs;
+import org.lwjgl.BufferUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -45,8 +33,6 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 import java.util.Vector;
-
-import org.lwjgl.BufferUtils;
 
 /**
  * Model
@@ -187,7 +173,7 @@ public abstract class Model extends Surf {
 			if (mod.name.length() == 0)
 				continue;
 
-			VID.Printf (Defines.PRINT_ALL, "%8i : %s\n", new Vargs(2).add(mod.extradatasize).add(mod.name));
+			VID.Printf (Defines.PRINT_ALL, "%8i : %s\n", mod.extradatasize, mod.name);
 			total += mod.extradatasize;
 		}
 		VID.Printf (Defines.PRINT_ALL, "Total resident: " + total +'\n');
@@ -1029,7 +1015,7 @@ public abstract class Model extends Surf {
 
 		if (pheader.version != qfiles.ALIAS_VERSION)
 			Com.Error(Defines.ERR_DROP, "%s has wrong version number (%i should be %i)",
-					 new Vargs(3).add(mod.name).add(pheader.version).add(qfiles.ALIAS_VERSION));
+					 mod.name, pheader.version, qfiles.ALIAS_VERSION);
 
 		if (pheader.skinheight > MAX_LBM_HEIGHT)
 			Com.Error(Defines.ERR_DROP, "model "+ mod.name +" has a skin taller than " + MAX_LBM_HEIGHT);
@@ -1147,11 +1133,11 @@ public abstract class Model extends Surf {
 		
 		if (sprout.version != qfiles.SPRITE_VERSION)
 			Com.Error(Defines.ERR_DROP, "%s has wrong version number (%i should be %i)",
-				new Vargs(3).add(mod.name).add(sprout.version).add(qfiles.SPRITE_VERSION));
+				mod.name, sprout.version, qfiles.SPRITE_VERSION);
 
 		if (sprout.numframes > qfiles.MAX_MD2SKINS)
 			Com.Error(Defines.ERR_DROP, "%s has too many frames (%i > %i)",
-				new Vargs(3).add(mod.name).add(sprout.numframes).add(qfiles.MAX_MD2SKINS));
+				mod.name, sprout.numframes, qfiles.MAX_MD2SKINS);
 
 		for (int i=0 ; i<sprout.numframes ; i++)
 		{

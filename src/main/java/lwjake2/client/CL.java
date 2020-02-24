@@ -20,23 +20,8 @@ package lwjake2.client;
 
 import lwjake2.Defines;
 import lwjake2.Globals;
-import lwjake2.game.Cmd;
-import lwjake2.game.EndianHandler;
-import lwjake2.game.Info;
-import lwjake2.game.cvar_t;
-import lwjake2.game.entity_state_t;
-import lwjake2.qcommon.CM;
-import lwjake2.qcommon.Cbuf;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.MSG;
-import lwjake2.qcommon.Netchan;
-import lwjake2.qcommon.SZ;
-import lwjake2.qcommon.netadr_t;
-import lwjake2.qcommon.qfiles;
-import lwjake2.qcommon.sizebuf_t;
-import lwjake2.qcommon.xcommand_t;
+import lwjake2.game.*;
+import lwjake2.qcommon.*;
 import lwjake2.server.SV_MAIN;
 import lwjake2.sound.S;
 import lwjake2.sys.IN;
@@ -45,7 +30,6 @@ import lwjake2.sys.Sys;
 import lwjake2.sys.Timer;
 import lwjake2.util.Lib;
 import lwjake2.util.Math3D;
-import lwjake2.util.Vargs;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -710,12 +694,12 @@ public final class CL {
         if (Globals.cl_timedemo != null && Globals.cl_timedemo.value != 0.0f) {
             int time;
 
-            time = (int) (Timer.Milliseconds() - Globals.cl.timedemo_start);
+            time = Timer.Milliseconds() - Globals.cl.timedemo_start;
             if (time > 0)
                 Com.Printf("%i frames, %3.1f seconds: %3.1f fps\n",
-                        new Vargs(3).add(Globals.cl.timedemo_frames).add(
-                                time / 1000.0).add(
-                                Globals.cl.timedemo_frames * 1000.0 / time));
+                        Globals.cl.timedemo_frames,
+                        time / 1000.0,
+                        Globals.cl.timedemo_frames * 1000.0 / time);
         }
 
         Math3D.VectorClear(Globals.cl.refdef.blend);

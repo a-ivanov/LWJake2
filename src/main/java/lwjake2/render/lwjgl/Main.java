@@ -31,22 +31,16 @@ import lwjake2.qcommon.Com;
 import lwjake2.qcommon.Cvar;
 import lwjake2.qcommon.qfiles;
 import lwjake2.qcommon.xcommand_t;
-import lwjake2.render.glconfig_t;
-import lwjake2.render.glstate_t;
-import lwjake2.render.image_t;
-import lwjake2.render.mleaf_t;
-import lwjake2.render.model_t;
+import lwjake2.render.*;
 import lwjake2.util.Math3D;
-import lwjake2.util.Vargs;
-
-import java.awt.Dimension;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBMultitexture;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
+
+import java.awt.*;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 
 /**
  * Main
@@ -864,7 +858,7 @@ public abstract class Main extends Base {
 			VID.Printf(
 				Defines.PRINT_ALL,
 				"%4i wpoly %4i epoly %i tex %i lmaps\n",
-				new Vargs(4).add(c_brush_polys).add(c_alias_polys).add(c_visible_textures).add(c_visible_lightmaps));
+				c_brush_polys, c_alias_polys, c_visible_textures, c_visible_lightmaps);
 		}
 	}
 
@@ -1279,7 +1273,7 @@ public abstract class Main extends Base {
 			VID.Printf(
 				Defines.PRINT_ALL,
 				"glGetError() = 0x%x\n\t%s\n",
-				new Vargs(2).add(err).add("" + GL11.glGetString(err)));
+				err, "" + GL11.glGetString(err));
 
 		return true;
 	}

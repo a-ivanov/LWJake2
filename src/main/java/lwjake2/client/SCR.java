@@ -22,19 +22,12 @@ import lwjake2.Defines;
 import lwjake2.Globals;
 import lwjake2.game.Cmd;
 import lwjake2.game.cvar_t;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.MSG;
-import lwjake2.qcommon.SZ;
-import lwjake2.qcommon.qfiles;
-import lwjake2.qcommon.xcommand_t;
+import lwjake2.qcommon.*;
 import lwjake2.sound.S;
 import lwjake2.sys.Timer;
 import lwjake2.util.Lib;
-import lwjake2.util.Vargs;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
@@ -637,8 +630,7 @@ public final class SCR extends Globals {
 
         stop = Timer.Milliseconds();
         time = (stop - start) / 1000.0f;
-        Com.Printf("%f seconds (%f fps)\n", new Vargs(2).add(time).add(
-                128.0f / time));
+        Com.Printf("%f seconds (%f fps)\n", time, 128.0f / time);
     }
 
     static void DirtyScreen() {
@@ -1005,8 +997,7 @@ public final class SCR extends Globals {
                     ping = 999;
 
                 // sprintf(block, "%3d %3d %-12.12s", score, ping, ci->name);
-                String block = Com.sprintf("%3d %3d %-12.12s", new Vargs(3)
-                        .add(score).add(ping).add(ci.name));
+                String block = Com.sprintf("%3d %3d %-12.12s", score, ping, ci.name);
 
                 if (value == cl.playernum)
                     Console.DrawAltString(x, y, block);

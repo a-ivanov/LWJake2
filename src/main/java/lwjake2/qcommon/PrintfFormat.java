@@ -22,12 +22,12 @@
 // http://java.sun.com/nav/business/index.html for further important licensing 
 // information for the Java Technology.
 
-package lwjake2.util;
+package lwjake2.qcommon;
 
-import java.util.Enumeration;
-import java.util.Vector;
-import java.util.Locale;
 import java.text.DecimalFormatSymbols;
+import java.util.Enumeration;
+import java.util.Locale;
+import java.util.Vector;
 
 /**
  * PrintfFormat allows the formatting of an array of
@@ -436,7 +436,7 @@ import java.text.DecimalFormatSymbols;
  *              formatting of -0.0f
  *              round up/down when last digits are 50000...
  */
-public class PrintfFormat {
+class PrintfFormat {
 	/**
 	 * Constructs an array of control specifications
 	 * possibly preceded, separated, or followed by
@@ -449,7 +449,7 @@ public class PrintfFormat {
 	 * string is null, zero length, or otherwise
 	 * malformed.
 	 */
-	public PrintfFormat(String fmtArg) throws IllegalArgumentException {
+	PrintfFormat(String fmtArg) throws IllegalArgumentException {
 		this(Locale.getDefault(), fmtArg);
 	}
 	/**
@@ -464,7 +464,7 @@ public class PrintfFormat {
 	 * string is null, zero length, or otherwise
 	 * malformed.
 	 */
-	public PrintfFormat(Locale locale, String fmtArg) throws IllegalArgumentException {
+	PrintfFormat(Locale locale, String fmtArg) throws IllegalArgumentException {
 		dfs = new DecimalFormatSymbols(locale);
 		int ePos = 0;
 		ConversionSpecification sFmt = null;
@@ -544,7 +544,7 @@ public class PrintfFormat {
 	 * @param o The array of objects to format.
 	 * @return  The formatted String.
 	 */
-	public String sprintf(Object[] o) {
+	String sprintf(Object[] o) {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -606,7 +606,7 @@ public class PrintfFormat {
 	 * Format nothing.  Just use the control string.
 	 * @return  the formatted String.
 	 */
-	public String sprintf() {
+	String sprintf() {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -629,7 +629,7 @@ public class PrintfFormat {
 	 *     conversion character is f, e, E, g, G, s,
 	 *     or S.
 	 */
-	public String sprintf(int x) throws IllegalArgumentException {
+	String sprintf(int x) throws IllegalArgumentException {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -654,7 +654,7 @@ public class PrintfFormat {
 	 *     conversion character is f, e, E, g, G, s,
 	 *     or S.
 	 */
-	public String sprintf(long x) throws IllegalArgumentException {
+	String sprintf(long x) throws IllegalArgumentException {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -679,7 +679,7 @@ public class PrintfFormat {
 	 *     conversion character is c, C, s, S,
 	 *     d, d, x, X, or o.
 	 */
-	public String sprintf(double x) throws IllegalArgumentException {
+	String sprintf(double x) throws IllegalArgumentException {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -703,7 +703,7 @@ public class PrintfFormat {
 	 * @exception IllegalArgumentException if the
 	 *   conversion character is neither s nor S.
 	 */
-	public String sprintf(String x) throws IllegalArgumentException {
+	String sprintf(String x) throws IllegalArgumentException {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;
@@ -733,7 +733,7 @@ public class PrintfFormat {
 	 *    conversion character is inappropriate for
 	 *    formatting an unwrapped value.
 	 */
-	public String sprintf(Object x) throws IllegalArgumentException {
+	String sprintf(Object x) throws IllegalArgumentException {
 		Enumeration<Object> e = vFmt.elements();
 		ConversionSpecification cs = null;
 		char c = 0;

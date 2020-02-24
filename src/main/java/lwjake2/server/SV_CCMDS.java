@@ -20,27 +20,12 @@ package lwjake2.server;
 
 import lwjake2.Defines;
 import lwjake2.Globals;
-import lwjake2.game.Cmd;
-import lwjake2.game.EndianHandler;
-import lwjake2.game.GameSVCmds;
-import lwjake2.game.GameSave;
-import lwjake2.game.Info;
-import lwjake2.game.cvar_t;
-import lwjake2.qcommon.CM;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.MSG;
-import lwjake2.qcommon.Netchan;
-import lwjake2.qcommon.SZ;
-import lwjake2.qcommon.netadr_t;
-import lwjake2.qcommon.sizebuf_t;
-import lwjake2.qcommon.xcommand_t;
+import lwjake2.game.*;
+import lwjake2.qcommon.*;
 import lwjake2.sys.NET;
 import lwjake2.sys.Sys;
 import lwjake2.util.Lib;
 import lwjake2.util.QuakeFile;
-import lwjake2.util.Vargs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -398,9 +383,9 @@ public class SV_CCMDS {
 				comment =
 					Com.sprintf(
 						"%2i:%2i %2i/%2i  ",
-						new Vargs().add(c.get(Calendar.HOUR_OF_DAY)).add(c.get(Calendar.MINUTE)).add(
-							c.get(Calendar.MONTH) + 1).add(
-							c.get(Calendar.DAY_OF_MONTH)));
+						c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+							c.get(Calendar.MONTH) + 1,
+							c.get(Calendar.DAY_OF_MONTH));
 				comment += SV_INIT.sv.configstrings[Defines.CS_NAME];
 			}
 			else {
@@ -777,8 +762,8 @@ public class SV_CCMDS {
 			if (0 == cl.state)
 				continue;
 
-			Com.Printf("%3i ", new Vargs().add(i));
-			Com.Printf("%5i ", new Vargs().add(cl.edict.client.ps.stats[Defines.STAT_FRAGS]));
+			Com.Printf("%3i ", i);
+			Com.Printf("%5i ", cl.edict.client.ps.stats[Defines.STAT_FRAGS]);
 
 			if (cl.state == Defines.cs_connected)
 				Com.Printf("CNCT ");
@@ -786,15 +771,15 @@ public class SV_CCMDS {
 				Com.Printf("ZMBI ");
 			else {
 				ping = cl.ping < 9999 ? cl.ping : 9999;
-				Com.Printf("%4i ", new Vargs().add(ping));
+				Com.Printf("%4i ", ping);
 			}
 
-			Com.Printf("%s", new Vargs().add(cl.name));
+			Com.Printf("%s", cl.name);
 			l = 16 - cl.name.length();
 			for (j = 0; j < l; j++)
 				Com.Printf(" ");
 
-			Com.Printf("%7i ", new Vargs().add(SV_INIT.svs.realtime - cl.lastmessage));
+			Com.Printf("%7i ", SV_INIT.svs.realtime - cl.lastmessage);
 
 			s = NET.AdrToString(cl.netchan.remote_address);
 			Com.Printf(s);
@@ -802,7 +787,7 @@ public class SV_CCMDS {
 			for (j = 0; j < l; j++)
 				Com.Printf(" ");
 
-			Com.Printf("%5i", new Vargs().add(cl.netchan.qport));
+			Com.Printf("%5i", cl.netchan.qport);
 
 			Com.Printf("\n");
 		}

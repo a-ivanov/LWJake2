@@ -25,8 +25,6 @@ import lwjake2.client.Console;
 import lwjake2.game.Cmd;
 import lwjake2.server.SV_MAIN;
 import lwjake2.sys.Sys;
-import lwjake2.util.PrintfFormat;
-import lwjake2.util.Vargs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -230,11 +228,7 @@ public final class Com {
         }
     };
 
-    public static void Error(int code, String fmt) throws longjmpException {
-        Error(code, fmt, null);
-    }
-
-    public static void Error(int code, String fmt, Vargs vargs) throws longjmpException {
+    public static void Error(int code, String fmt, Object... vargs) throws longjmpException {
         // va_list argptr;
         // static char msg[MAXPRINTMSG];
 
@@ -282,21 +276,11 @@ public final class Com {
         }
     }
 
-    public static void DPrintf(String fmt) {
-        _debugContext = debugContext;
-        DPrintf(fmt, null);
-        _debugContext = "";
-    }
-
     public static void dprintln(String fmt) {
-        DPrintf(_debugContext + fmt + "\n", null);
+        DPrintf(_debugContext + fmt + "\n");
     }
 
-    public static void Printf(String fmt) {
-        Printf(_debugContext + fmt, null);
-    }
-
-    public static void DPrintf(String fmt, Vargs vargs) {
+    public static void DPrintf(String fmt, Object... vargs) {
         if (Globals.developer == null || Globals.developer.value == 0)
             return; // don't confuse non-developers with techie stuff...
         _debugContext = debugContext;
@@ -307,7 +291,7 @@ public final class Com {
     /**
      * Prints out messages, which can also be redirected to a remote client.
      */
-    public static void Printf(String fmt, Vargs vargs) {
+    public static void Printf(String fmt, Object... vargs) {
         String msg = sprintf(_debugContext + fmt, vargs);
         if (rd_target != 0) {
             if ((msg.length() + rd_buffer.length()) > (rd_buffersize - 1)) {
@@ -361,14 +345,12 @@ public final class Com {
         Printf(_debugContext + fmt + "\n");
     }
 
-    public static String sprintf(String fmt, Vargs vargs) {
-        String msg = "";
-        if (vargs == null || vargs.size() == 0) {
-            msg = fmt;
+    public static String sprintf(String fmt, Object... vargs) {
+        if (vargs == null || vargs.length == 0) {
+            return fmt;
         } else {
-            msg = new PrintfFormat(fmt).sprintf(vargs.toArray());
+            return new PrintfFormat(fmt).sprintf(vargs);
         }
-        return msg;
     }
 
     public static int Argc() {

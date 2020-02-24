@@ -18,6 +18,7 @@
 
 package lwjake2.qcommon;
 
+//TODO Make a functional interface
 /**
  * xcommand_t
  */

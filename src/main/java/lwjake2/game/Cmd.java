@@ -21,14 +21,7 @@ package lwjake2.game;
 import lwjake2.Defines;
 import lwjake2.Globals;
 import lwjake2.game.monsters.M_Player;
-import lwjake2.qcommon.Cbuf;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.MSG;
-import lwjake2.qcommon.SZ;
-import lwjake2.qcommon.cmd_function_t;
-import lwjake2.qcommon.xcommand_t;
+import lwjake2.qcommon.*;
 import lwjake2.server.SV_GAME;
 import lwjake2.util.Lib;
 
@@ -306,20 +299,17 @@ public final class Cmd {
 
     public static void AddCommand(String cmd_name, xcommand_t function) {
         cmd_function_t cmd;
-        //Com.DPrintf("Cmd_AddCommand: " + cmd_name + "\n");
+
         // fail if the command is a variable name
         if ((Cvar.VariableString(cmd_name)).length() > 0) {
-            Com.Printf("Cmd_AddCommand: " + cmd_name
-                    + " already defined as a var\n");
+            Com.Printf("Cmd_AddCommand: %s already defined as a var\n", cmd_name);
             return;
         }
 
         // fail if the command already exists
         for (cmd = cmd_functions; cmd != null; cmd = cmd.next) {
             if (cmd_name.equals(cmd.name)) {
-                Com
-                        .Printf("Cmd_AddCommand: " + cmd_name
-                                + " already defined\n");
+                Com.Printf("Cmd_AddCommand: %s already defined\n", cmd_name);
                 return;
             }
         }

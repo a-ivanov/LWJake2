@@ -23,7 +23,6 @@ import lwjake2.Globals;
 import lwjake2.qcommon.Com;
 import lwjake2.qcommon.MSG;
 import lwjake2.util.Lib;
-import lwjake2.util.Vargs;
 
 /**
  * CL_inv
@@ -120,8 +119,7 @@ public class CL_inv {
 					break;
 				}
 
-			string = Com.sprintf("%6s %3i %s", new Vargs(3).add(bind).add(Globals.cl.inventory[item]).add(
-					Globals.cl.configstrings[Defines.CS_ITEMS + item]));
+			string = Com.sprintf("%6s %3i %s", bind, Globals.cl.inventory[item], Globals.cl.configstrings[Defines.CS_ITEMS + item]);
 			if (item != selected)
 				string = getHighBitString(string);
 			else // draw a blinky cursor by the selected item

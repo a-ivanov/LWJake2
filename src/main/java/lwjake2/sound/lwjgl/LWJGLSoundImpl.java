@@ -18,6 +18,7 @@
 
 package lwjake2.sound.lwjgl;
 
+import com.flibitijibibo.flibitEFX.EFXFilterLowPass;
 import lwjake2.Defines;
 import lwjake2.Globals;
 import lwjake2.game.Cmd;
@@ -28,27 +29,12 @@ import lwjake2.qcommon.Com;
 import lwjake2.qcommon.Cvar;
 import lwjake2.qcommon.FS;
 import lwjake2.qcommon.xcommand_t;
-import lwjake2.sound.S;
-import lwjake2.sound.Sound;
-import lwjake2.sound.WaveLoader;
-import lwjake2.sound.sfx_t;
-import lwjake2.sound.sfxcache_t;
+import lwjake2.sound.*;
 import lwjake2.util.Lib;
-import lwjake2.util.Vargs;
-
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
-
-import com.flibitijibibo.flibitEFX.EFXFilterLowPass;
 import org.lwjgl.LWJGLException;
-import org.lwjgl.openal.AL;
-import org.lwjgl.openal.AL10;
-import org.lwjgl.openal.ALC10;
-import org.lwjgl.openal.EFX10;
-import org.lwjgl.openal.OpenALException;
+import org.lwjgl.openal.*;
+
+import java.nio.*;
 
 /**
  * LWJGLSoundImpl
@@ -590,7 +576,7 @@ public final class LWJGLSoundImpl implements Sound {
 					Com.Printf("L");
 				else
 					Com.Printf(" ");
-				Com.Printf("(%2db) %6i : %s\n", new Vargs(3).add(sc.width * 8).add(size).add(sfx.name));
+				Com.Printf("(%2db) %6i : %s\n", sc.width * 8, size, sfx.name);
 			} else {
 				if (sfx.name.charAt(0) == '*')
 					Com.Printf("  placeholder : " + sfx.name + "\n");
@@ -603,10 +589,10 @@ public final class LWJGLSoundImpl implements Sound {
 	
 	void SoundInfo_f() {
 
-		Com.Printf("%5d stereo\n", new Vargs(1).add(1));
-		Com.Printf("%5d samples\n", new Vargs(1).add(22050));
-		Com.Printf("%5d samplebits\n", new Vargs(1).add(16));
-		Com.Printf("%5d speed\n", new Vargs(1).add(44100));
+		Com.Printf("%5d stereo\n", 1);
+		Com.Printf("%5d samples\n", 22050);
+		Com.Printf("%5d samplebits\n", 16);
+		Com.Printf("%5d speed\n", 44100);
 	}
 
 }

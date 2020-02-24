@@ -20,14 +20,9 @@ package lwjake2.qcommon;
 
 import lwjake2.Defines;
 import lwjake2.Globals;
-import lwjake2.game.cmodel_t;
-import lwjake2.game.cplane_t;
-import lwjake2.game.cvar_t;
-import lwjake2.game.mapsurface_t;
-import lwjake2.game.trace_t;
+import lwjake2.game.*;
 import lwjake2.util.Lib;
 import lwjake2.util.Math3D;
-import lwjake2.util.Vargs;
 import lwjake2.util.Vec3Cache;
 
 import java.io.RandomAccessFile;
@@ -335,12 +330,12 @@ public class CM {
                 Com
                         .DPrintf(
                                 "|%6i|%8.2f|%8.2f|%8.2f|  %8.2f|%8.2f|%8.2f|   %8.2f|%8.2f|%8.2f|\n",
-                                new Vargs().add(out.headnode)
-                                        .add(out.origin[0]).add(out.origin[1])
-                                        .add(out.origin[2]).add(out.mins[0])
-                                        .add(out.mins[1]).add(out.mins[2]).add(
-                                                out.maxs[0]).add(out.maxs[1])
-                                        .add(out.maxs[2]));
+                                out.headnode,
+                                out.origin[0], out.origin[1],
+                                out.origin[2], out.mins[0],
+                                out.mins[1], out.mins[2],
+                                out.maxs[0], out.maxs[1],
+                                out.maxs[2]);
             }
         }
     }
@@ -379,9 +374,8 @@ public class CM {
             out.c.value = in.value;
 
             if (debugloadmap) {
-                Com.DPrintf("|%20s|%20s|%6i|%6i|\n", new Vargs()
-                        .add(out.c.name).add(out.rname).add(out.c.value).add(
-                                out.c.flags));
+                Com.DPrintf("|%20s|%20s|%6i|%6i|\n",
+                        out.c.name, out.rname, out.c.value, out.c.flags);
             }
 
         }
@@ -423,8 +417,8 @@ public class CM {
                 out.children[j] = child;
             }
             if (debugloadmap) {
-                Com.DPrintf("|%6i| %6i| %6i|\n", new Vargs().add(in.planenum)
-                        .add(out.children[0]).add(out.children[1]));
+                Com.DPrintf("|%6i| %6i| %6i|\n", in.planenum,
+                        out.children[0], out.children[1]);
             }
         }
     }
@@ -459,9 +453,8 @@ public class CM {
 
             if (debugloadmap) {
                 Com
-                        .DPrintf("| %6i| %6i| %8X|\n", new Vargs().add(
-                                out.firstbrushside).add(out.numsides).add(
-                                out.contents));
+                        .DPrintf("| %6i| %6i| %8X|\n",
+                                out.firstbrushside, out.numsides, out.contents);
             }
         }
     }
@@ -508,9 +501,9 @@ public class CM {
                 numclusters = out.cluster + 1;
 
             if (debugloadmap) {
-                Com.DPrintf("|%8x|%6i|%6i|%6i|\n", new Vargs()
-                        .add(out.contents).add(out.cluster).add(out.area).add(
-                                out.firstleafbrush).add(out.numleafbrushes));
+                Com.DPrintf("|%8x|%6i|%6i|%6i|\n",
+                        out.contents, out.cluster, out.area,
+                        out.firstleafbrush, out.numleafbrushes);
             }
 
         }
@@ -583,9 +576,9 @@ public class CM {
 
             if (debugloadmap) {
                 Com.DPrintf("|%6.2f|%6.2f|%6.2f| %10.2f|%3i| %1i|\n",
-                        new Vargs().add(out.normal[0]).add(out.normal[1]).add(
-                                out.normal[2]).add(out.dist).add(out.type).add(
-                                out.signbits));
+                        out.normal[0], out.normal[1],
+                        out.normal[2], out.dist, out.type,
+                        out.signbits);
             }
         }
     }
@@ -624,7 +617,7 @@ public class CM {
         for (i = 0; i < count; i++) {
             out[i] = bb.getShort();
             if (debugloadmap) {
-                Com.DPrintf("|%6i|%6i|\n", new Vargs().add(i).add(out[i]));
+                Com.DPrintf("|%6i|%6i|\n", i, out[i]);
             }
         }
     }
@@ -677,7 +670,7 @@ public class CM {
                 out.surface = map_surfaces[j];
 
             if (debugloadmap) {
-                Com.DPrintf("| %6i| %6i|\n", new Vargs().add(num).add(j));
+                Com.DPrintf("| %6i| %6i|\n", num, j);
             }
         }
     }
@@ -716,8 +709,8 @@ public class CM {
             out.floodvalid = 0;
             out.floodnum = 0;
             if (debugloadmap) {
-                Com.DPrintf("| %6i| %6i|\n", new Vargs()
-                        .add(out.numareaportals).add(out.firstareaportal));
+                Com.DPrintf("| %6i| %6i|\n",
+                        out.numareaportals, out.firstareaportal);
             }
         }
     }
@@ -753,8 +746,7 @@ public class CM {
             out.otherarea = in.otherarea;
 
             if (debugloadmap) {
-                Com.DPrintf("|%6i|%6i|\n", new Vargs().add(out.portalnum).add(
-                        out.otherarea));
+                Com.DPrintf("|%6i|%6i|\n", out.portalnum, out.otherarea);
             }
         }
     }

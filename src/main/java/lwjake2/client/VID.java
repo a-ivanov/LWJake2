@@ -28,10 +28,8 @@ import lwjake2.qcommon.xcommand_t;
 import lwjake2.render.Renderer;
 import lwjake2.sound.S;
 import lwjake2.sys.IN;
-import lwjake2.util.Vargs;
 
-import java.awt.Dimension;
-import java.awt.DisplayMode;
+import java.awt.*;
 
 /**
  * VID is a video driver.
@@ -74,11 +72,7 @@ public class VID extends Globals {
 	==========================================================================
 	*/
 
-	public static void Printf(int print_level, String fmt) {
-		Printf(print_level, fmt, null);	
-	}
-
-	public static void Printf(int print_level, String fmt, Vargs vargs) {
+	public static void Printf(int print_level, String fmt, Object... vargs) {
 		// static qboolean inupdate;
 		if (print_level == Defines.PRINT_ALL)
 			Com.Printf(fmt, vargs);

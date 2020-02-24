@@ -21,13 +21,8 @@ package lwjake2.client;
 import lwjake2.Defines;
 import lwjake2.Globals;
 import lwjake2.game.Cmd;
-import lwjake2.qcommon.Cbuf;
-import lwjake2.qcommon.Com;
-import lwjake2.qcommon.Cvar;
-import lwjake2.qcommon.FS;
-import lwjake2.qcommon.xcommand_t;
+import lwjake2.qcommon.*;
 import lwjake2.util.Lib;
-import lwjake2.util.Vargs;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -518,7 +513,7 @@ public final class Console extends Globals {
         SCR.AddDirtyPoint(0, 0);
         SCR.AddDirtyPoint(viddef.width - 1, lines - 1);
 
-        version = Com.sprintf("v%4.2f", new Vargs(1).add(VERSION));
+        version = Com.sprintf("v%4.2f", VERSION);
         for (x = 0; x < 5; x++)
             re.DrawChar(viddef.width - 44 + x * 8, lines - 12, 128 + version
                     .charAt(x));
